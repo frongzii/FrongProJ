@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:frongeasyshop/models/stock_model.dart';
+import 'package:frongeasyshop/states/show_list_product_where_cat.dart';
 import 'package:frongeasyshop/utility/my_constant.dart';
 import 'package:frongeasyshop/widgets/show_process.dart';
 import 'package:frongeasyshop/widgets/show_text.dart';
@@ -20,6 +22,8 @@ class _ShowProductWhereShopState extends State<ShowProductWhereShop> {
   String? idDocUser;
   bool load = true;
   bool? haveProduct;
+  var stockModels = <StockModel>[];
+  var idStocks = <String>[];
 
   @override
   void initState() {
@@ -42,6 +46,12 @@ class _ShowProductWhereShopState extends State<ShowProductWhereShop> {
         haveProduct = false;
       } else {
         haveProduct = true;
+        for (var item in value.docs) {
+          StockModel stockModel = StockModel.fromMap(item.data());
+          stockModels.add(stockModel);
+
+          idStocks.add(item.id);
+        }
       }
 
       setState(() {
@@ -57,7 +67,22 @@ class _ShowProductWhereShopState extends State<ShowProductWhereShop> {
       body: load
           ? const ShowProcess()
           : haveProduct!
-              ? Text('Have Data')
+              ? ListView.builder(
+                  itemCount: stockModels.length,
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ShowListProductWhereCat(idStock: idStocks[index], idUser: idDocUser!,),
+                        )),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ShowText(title: stockModels[index].cat),
+                      ),
+                    ),
+                  ),
+                )
               : Center(
                   child: ShowText(
                   title: 'ยังไม่มีสินค้า',
