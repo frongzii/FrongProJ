@@ -152,6 +152,7 @@ class _DisplayCartState extends State<DisplayCart> {
                       .update(data)
                       .then((value) {
                         print('Success Update ${item.nameProduct}');
+                        
                       });
                 });
               }
