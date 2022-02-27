@@ -150,8 +150,9 @@ class _DisplayCartState extends State<DisplayCart> {
                       .collection('product')
                       .doc(item.docProduct)
                       .update(data)
-                      .then((value) =>
-                          print('Success Update ${item.nameProduct}'));
+                      .then((value) {
+                        print('Success Update ${item.nameProduct}');
+                      });
                 });
               }
               await SQLiteHelper()
