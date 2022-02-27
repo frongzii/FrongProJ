@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:frongeasyshop/models/profile_shop_model.dart';
 import 'package:frongeasyshop/states/show_product_where_shop.dart';
+import 'package:frongeasyshop/widgets/show_add_cart.dart';
 import 'package:frongeasyshop/widgets/show_process.dart';
 import 'package:frongeasyshop/widgets/show_text.dart';
 
@@ -58,7 +59,7 @@ class _ShowShopForBuyerState extends State<ShowShopForBuyer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(actions: [ShowAddCart()],),
       body: profileShopModels.isEmpty
           ? const ShowProcess()
           : ListView.builder(

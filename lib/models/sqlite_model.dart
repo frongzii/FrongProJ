@@ -2,7 +2,7 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class SQLiteModel {
-  final int id;
+  final int? id;
   final String nameProduct;
   final String price;
   final String amount;
@@ -11,7 +11,7 @@ class SQLiteModel {
   final String docStock;
   final String docUser;
   SQLiteModel({
-    required this.id,
+    this.id,
     required this.nameProduct,
     required this.price,
     required this.amount,
@@ -47,5 +47,6 @@ class SQLiteModel {
     );
   }
 
-  factory SQLiteModel.fromJson(String source) => SQLiteModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory SQLiteModel.fromJson(String source) =>
+      SQLiteModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

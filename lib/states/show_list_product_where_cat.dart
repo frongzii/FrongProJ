@@ -2,7 +2,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:frongeasyshop/models/product_model.dart';
+import 'package:frongeasyshop/models/sqlite_model.dart';
 import 'package:frongeasyshop/utility/my_constant.dart';
+import 'package:frongeasyshop/utility/my_dialog.dart';
+import 'package:frongeasyshop/utility/sqlite_helper.dart';
+import 'package:frongeasyshop/widgets/show_add_cart.dart';
 import 'package:frongeasyshop/widgets/show_image_from_url.dart';
 import 'package:frongeasyshop/widgets/show_logo.dart';
 import 'package:frongeasyshop/widgets/show_process.dart';
@@ -25,6 +29,7 @@ class ShowListProductWhereCat extends StatefulWidget {
 class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
   String? idStock, idDocUser;
   var productModels = <ProductModel>[];
+  var docProducts = <String>[];
   bool load = true;
 
   @override
@@ -49,6 +54,7 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
       for (var item in value.docs) {
         ProductModel productModel = ProductModel.fromMap(item.data());
         productModels.add(productModel);
+        docProducts.add(item.id);
       }
 
       setState(() {
@@ -60,13 +66,21 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          ShowAddCart(callBackFunc: () {
+            print('################### Call Back Work');
+            readAllProduct();
+          }),
+        ],
+      ),
       body: load
           ? const ShowProcess()
           : ListView.builder(
               itemCount: productModels.length,
               itemBuilder: (context, index) => InkWell(
-                onTap: () => dialogAddCart(productModels[index]),
+                onTap: () =>
+                    dialogAddCart(productModels[index], docProducts[index]),
                 child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -104,7 +118,8 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
     );
   }
 
-  Future<void> dialogAddCart(ProductModel productModel) async {
+  Future<void> dialogAddCart(
+      ProductModel productModel, String docProduct) async {
     int chooseProduct = 1;
     showDialog(
       context: context,
@@ -162,9 +177,23 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
           ),
           actions: [
             TextButton(
-                onPressed: () {
+                onPressed: () async {
                   Navigator.pop(context);
-                  processAddCart(productModel, chooseProduct);
+
+                  await SQLiteHelper().readAllData().then((value) {
+                    var sqliteModels = <SQLiteModel>[];
+                    sqliteModels = value;
+                    if (value.isEmpty) {
+                      processAddCart(productModel, chooseProduct, docProduct);
+                    } else {
+                      if (sqliteModels[0].docUser == idDocUser) {
+                        processAddCart(productModel, chooseProduct, docProduct);
+                      } else {
+                        MyDialog().normalDialog(
+                            context, 'ผิดร้าน', 'กรุณา เพิ่มสินค้าที่เราเดิม');
+                      }
+                    }
+                  });
                 },
                 child: const Text('Add Cart')),
             TextButton(
@@ -177,8 +206,21 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
   }
 
   Future<void> processAddCart(
-      ProductModel productModel, int chooseProduct) async {
+      ProductModel productModel, int chooseProduct, String docProduct) async {
     print(
         'add ==> ${productModel.nameProduct} chooseProduct ==> $chooseProduct');
+
+    SQLiteModel sqLiteModel = SQLiteModel(
+        nameProduct: productModel.nameProduct,
+        price: productModel.priceProduct.toString(),
+        amount: chooseProduct.toString(),
+        sum: (productModel.priceProduct * chooseProduct).toString(),
+        docProduct: docProduct,
+        docStock: idStock!,
+        docUser: idDocUser!);
+
+    await SQLiteHelper().insertValueToSQLite(sqLiteModel).then((value) =>
+        MyDialog().normalDialog(context, 'Success Add Cart',
+            'Add ${productModel.nameProduct} finis'));
   }
 }
