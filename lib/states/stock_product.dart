@@ -21,6 +21,7 @@ class _StockProductState extends State<StockProduct> {
     MyConstant.routStockProductCatigory,
     '',
     '',
+    '',
   ];
   @override
   Widget build(BuildContext context) {

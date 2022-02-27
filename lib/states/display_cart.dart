@@ -140,6 +140,7 @@ class _DisplayCartState extends State<DisplayCart> {
 
                   Map<String, dynamic> data = {};
                   data['amountProduct'] = newAmountProduct;
+                  
 
                   await FirebaseFirestore.instance
                       .collection('user')

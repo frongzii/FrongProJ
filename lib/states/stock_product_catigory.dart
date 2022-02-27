@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:frongeasyshop/models/stock_model.dart';
 import 'package:frongeasyshop/states/add_product.dart';
+import 'package:frongeasyshop/states/show_product_for_shoper.dart';
 import 'package:frongeasyshop/utility/my_constant.dart';
 import 'package:frongeasyshop/widgets/show_process.dart';
 import 'package:frongeasyshop/widgets/show_text.dart';
@@ -19,6 +20,7 @@ class _StockProductCatigoryState extends State<StockProductCatigory> {
   bool? haveStock;
   List<StockModel> stockModels = [];
   var docStocks = <String>[];
+  String? uid;
 
   @override
   void initState() {
@@ -33,7 +35,7 @@ class _StockProductCatigoryState extends State<StockProductCatigory> {
     }
 
     await FirebaseAuth.instance.authStateChanges().listen((event) async {
-      String uid = event!.uid;
+      uid = event!.uid;
       await FirebaseFirestore.instance
           .collection('user')
           .doc(uid)
@@ -93,22 +95,44 @@ class _StockProductCatigoryState extends State<StockProductCatigory> {
   ListView buildListType() {
     return ListView.builder(
       itemCount: stockModels.length,
-      itemBuilder: (context, index) => InkWell(
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddProduct(
-                stockModel: stockModels[index],
-                docStock: docStocks[index],
+      itemBuilder: (context, index) => Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ShowText(
+                title: stockModels[index].cat,
+                textStyle: MyConstant().h2Style(),
               ),
-            )),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ShowText(
-              title: stockModels[index].cat,
-              textStyle: MyConstant().h2Style(),
-            ),
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ShowProductForShoper(
+                                docStock: docStocks[index], docUser: uid!,
+                              ),
+                            ));
+                      },
+                      icon: const Icon(Icons.list)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddProduct(
+                                stockModel: stockModels[index],
+                                docStock: docStocks[index],
+                              ),
+                            ));
+                      },
+                      icon: const Icon(Icons.add_box_outlined)),
+                ],
+              ),
+            ],
           ),
         ),
       ),
