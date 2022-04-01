@@ -67,6 +67,8 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: MyConstant.primart,
+        title: Text('รายการสินค้า'),
         actions: [
           ShowAddCart(callBackFunc: () {
             print('################### Call Back Work');
@@ -100,11 +102,11 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
                             ShowText(
                               title:
                                   'ราคา ${productModels[index].priceProduct.toString()} บาท',
-                              textStyle: MyConstant().h1Style(),
+                              textStyle: MyConstant().h3Style(),
                             ),
                             ShowText(
                               title:
-                                  'จำนวน Stock = ${productModels[index].amountProduct.toString()}',
+                                  'จำนวน คงเหลือ = ${productModels[index].amountProduct.toString()}',
                               textStyle: MyConstant().h3Style(),
                             ),
                           ],
@@ -136,10 +138,10 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
               children: [
                 ShowText(
                     title:
-                        'price = ${productModel.priceProduct.toString()} thb'),
+                        'ราคา = ${productModel.priceProduct.toString()} บาท'),
                 ShowText(
                     title:
-                        'Amount = ${productModel.amountProduct.toString()} '),
+                        'จำนวนคงเหลือ = ${productModel.amountProduct.toString()} '),
               ],
             ),
           ),
@@ -195,10 +197,10 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
                     }
                   });
                 },
-                child: const Text('Add Cart')),
+                child: const Text('เพิ่มลงตะกร้า')),
             TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel')),
+                child: const Text('ยกเลิก')),
           ],
         );
       }),
@@ -220,7 +222,7 @@ class _ShowListProductWhereCatState extends State<ShowListProductWhereCat> {
         docUser: idDocUser!);
 
     await SQLiteHelper().insertValueToSQLite(sqLiteModel).then((value) =>
-        MyDialog().normalDialog(context, 'Success Add Cart',
-            'Add ${productModel.nameProduct} finis'));
+        MyDialog().normalDialog(context, 'เพิ่มลงตะกร้า',
+            'เพิ่ม ${productModel.nameProduct} สำเร็จ'));
   }
 }

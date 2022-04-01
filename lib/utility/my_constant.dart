@@ -23,6 +23,7 @@ class MyConstant {
   static Color dark = const Color(0xff705d2f);
   static Color light = const Color(0xffd2ba86);
 
+
 //metthod
 
   BoxDecoration simplebox() => BoxDecoration(
@@ -48,12 +49,12 @@ class MyConstant {
         color: dark,
       );
   TextStyle h2Style() => TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: FontWeight.w700, //หัวข้อ
         color: dark,
       );
   TextStyle h3Style() => TextStyle(
-        fontSize: 14,
+        fontSize: 18,
         fontWeight: FontWeight.normal, //ตัวปกติ
         color: dark,
       );

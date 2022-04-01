@@ -14,17 +14,15 @@ class ServiceBuyer extends StatefulWidget {
 class _ServiceBuyerState extends State<ServiceBuyer> {
   var titles = <String>[
     'ข้อมูลส่วนตัว',
-    'ติดต่อร้านค้า',
-    'สถานะสินค้า',
     'เลือกร้านค้า',
-    'โปรโมชั่นแนะนำ',
+    'สถานะสินค้า',
+    'ประวัติราการสั่งซื้อ',
   ];
 
   var keyRoutes = <String>[
     '',
-    '',
-    '',
     MyConstant.routShowShopForBuyer,
+    '',
     '',
   ];
 

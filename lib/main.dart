@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:frongeasyshop/models/user_mdel.dart';
 import 'package:frongeasyshop/states/add_stock_product_cat.dart';
 import 'package:frongeasyshop/states/authen.dart';
-import 'package:frongeasyshop/states/contact_customer.dart';
+//import 'package:frongeasyshop/states/contact_customer.dart';
 import 'package:frongeasyshop/states/create_account.dart';
 import 'package:frongeasyshop/states/edit_profile_shop.dart';
 import 'package:frongeasyshop/states/edit_shop_profile.dart';
@@ -13,7 +13,7 @@ import 'package:frongeasyshop/states/forgotpassword.dart';
 import 'package:frongeasyshop/states/insert_profile_shop.dart';
 import 'package:frongeasyshop/states/order_history.dart';
 import 'package:frongeasyshop/states/order_status.dart';
-import 'package:frongeasyshop/states/promotion.dart';
+//import 'package:frongeasyshop/states/promotion.dart';
 import 'package:frongeasyshop/states/service_buyer.dart';
 import 'package:frongeasyshop/states/service_shopper.dart';
 import 'package:frongeasyshop/states/show_shop_for_buyer.dart';
@@ -36,11 +36,8 @@ Map<String, WidgetBuilder> map = {
       const StockProductCatigory(),
   MyConstant.routStockAddStockProductCat: (BuildContext context) =>
       const AddStockProductCat(),
-  MyConstant.routStockPromotion: (BuildContext context) => const Promotion(),
   MyConstant.routOrderHistory: (BuildContext context) => const OrderHistory(),
   MyConstant.routOrderStatus: (BuildContext context) => const OrderStatus(),
-  MyConstant.routContactCustomer: (BuildContext context) =>
-      const ContactCustomer(),
   MyConstant.routShowShopForBuyer: (BuildContext context) =>
       const ShowShopForBuyer(),
   MyConstant.routInsertProfileShop: (BuildContext context) =>
@@ -87,6 +84,8 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+ 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -95,3 +94,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:frongeasyshop/models/profile_shop_model.dart';
+import 'package:frongeasyshop/utility/my_constant.dart';
 import 'package:frongeasyshop/utility/my_dialog.dart';
 import 'package:frongeasyshop/widgets/show_form.dart';
 import 'package:frongeasyshop/widgets/show_process.dart';
@@ -75,6 +76,7 @@ class _InsertProfileShopState extends State<InsertProfileShop> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: MyConstant.primart,
         title: const Text('เพิ่มข้อมูล ร้านค้า'),
       ),
       body: GestureDetector(
@@ -99,7 +101,7 @@ class _InsertProfileShopState extends State<InsertProfileShop> {
                     mySave: addressSave,
                   ),
                   ShowForm(
-                    title: 'เบอร์โทรศัพย์ :',
+                    title: 'เบอร์โทรศัพท์ :',
                     myValidate: phoneValidate,
                     mySave: phoneSave,
                   ),
@@ -202,7 +204,7 @@ class _InsertProfileShopState extends State<InsertProfileShop> {
 
   String? nameValidate(String? string) {
     if (string!.isEmpty) {
-      return 'กรุณากรอกชื่อร้าน ด้วยคะ';
+      return 'กรุณากรอกชื่อร้าน ';
     } else {
       return null;
     }
@@ -210,7 +212,7 @@ class _InsertProfileShopState extends State<InsertProfileShop> {
 
   String? addressValidate(String? string) {
     if (string!.isEmpty) {
-      return 'กรุณากรอก ที่อยู่ร้าน ด้วยคะ';
+      return 'กรุณากรอก ที่อยู่ร้าน ';
     } else {
       return null;
     }
@@ -218,7 +220,7 @@ class _InsertProfileShopState extends State<InsertProfileShop> {
 
   String? phoneValidate(String? string) {
     if (string!.isEmpty) {
-      return 'กรุณากรอก เบอร์โทร ด้วยคะ';
+      return 'กรุณากรอก เบอร์โทร ';
     } else {
       return null;
     }

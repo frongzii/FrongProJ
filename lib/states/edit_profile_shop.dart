@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:frongeasyshop/models/profile_shop_model.dart';
+import 'package:frongeasyshop/utility/my_constant.dart';
 import 'package:frongeasyshop/utility/my_dialog.dart';
 import 'package:frongeasyshop/widgets/show_form.dart';
 import 'package:frongeasyshop/widgets/show_process.dart';
@@ -59,6 +60,7 @@ class _EditProfileShopState extends State<EditProfileShop> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: MyConstant.primart,
         title: const Text('แก้ไขข้อมูล ร้านค้า'),
       ),
       body: profileShopModel == null
@@ -85,7 +87,7 @@ class _EditProfileShopState extends State<EditProfileShop> {
                         textEditingController: addressController,
                       ),
                       ShowForm(
-                        title: 'เบอร์โทรศัพย์ :',
+                        title: 'เบอร์โทรศัพท์ :',
                         myValidate: phoneValidate,
                         mySave: phoneSave,
                         textEditingController: phoneController,
@@ -173,7 +175,7 @@ class _EditProfileShopState extends State<EditProfileShop> {
 
   String? phoneValidate(String? string) {
     if (string!.isEmpty) {
-      return 'กรุณากรอกเบอร์ ด้วยคะ';
+      return 'กรุณากรอกเบอร์ ';
     } else {
       return null;
     }

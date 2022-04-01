@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:frongeasyshop/models/profile_shop_model.dart';
 import 'package:frongeasyshop/states/show_product_where_shop.dart';
+import 'package:frongeasyshop/utility/my_constant.dart';
 import 'package:frongeasyshop/widgets/show_add_cart.dart';
 import 'package:frongeasyshop/widgets/show_process.dart';
 import 'package:frongeasyshop/widgets/show_text.dart';
@@ -59,7 +60,9 @@ class _ShowShopForBuyerState extends State<ShowShopForBuyer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [ShowAddCart()],),
+      appBar: AppBar(actions: [ShowAddCart()],
+      backgroundColor: MyConstant.primart,
+      title: Text('เลือกร้านค้า'),),
       body: profileShopModels.isEmpty
           ? const ShowProcess()
           : ListView.builder(
@@ -85,6 +88,7 @@ class _ShowShopForBuyerState extends State<ShowShopForBuyer> {
                               Image.network(profileShopModels[index].pathImage),
                         ),
                         ShowText(
+                          textStyle: TextStyle(fontSize: 18.0),
                           title: profileShopModels[index].nameShop,
                         ),
                       ],

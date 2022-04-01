@@ -73,7 +73,8 @@ class _DisplayCartState extends State<DisplayCart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Display Cart'),
+        backgroundColor: MyConstant.primart,
+        title: const Text('ตะกร้า'),
       ),
       body: load
           ? const ShowProcess()
@@ -112,12 +113,11 @@ class _DisplayCartState extends State<DisplayCart> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         ElevatedButton(
-            onPressed: () async {
-              await SQLiteHelper()
-                  .deleteAllData()
-                  .then((value) => readSQLite());
-            },
-            child: const Text('Empty Cart')),
+          onPressed: () async {
+            await SQLiteHelper().deleteAllData().then((value) => readSQLite());
+          },
+          child: const Text('เคลียร์ตะกร้า'),
+        ),
         const SizedBox(
           width: 4,
         ),
@@ -140,7 +140,6 @@ class _DisplayCartState extends State<DisplayCart> {
 
                   Map<String, dynamic> data = {};
                   data['amountProduct'] = newAmountProduct;
-                  
 
                   await FirebaseFirestore.instance
                       .collection('user')
@@ -151,16 +150,15 @@ class _DisplayCartState extends State<DisplayCart> {
                       .doc(item.docProduct)
                       .update(data)
                       .then((value) {
-                        print('Success Update ${item.nameProduct}');
-                        
-                      });
+                    print('Success Update ${item.nameProduct}');
+                  });
                 });
               }
               await SQLiteHelper()
                   .deleteAllData()
                   .then((value) => readSQLite());
             },
-            child: const Text('Order')),
+            child: const Text('สั่งซื้อ')),
         const SizedBox(
           width: 4,
         ),
@@ -178,7 +176,7 @@ class _DisplayCartState extends State<DisplayCart> {
             children: [
               ShowText(
                 title: 'Total : ',
-                textStyle: MyConstant().h2Style(),
+                textStyle: MyConstant().h3Style(),
               ),
             ],
           ),
@@ -187,7 +185,7 @@ class _DisplayCartState extends State<DisplayCart> {
           flex: 1,
           child: ShowText(
             title: '$total',
-            textStyle: MyConstant().h2Style(),
+            textStyle: MyConstant().h3Style(),
           ),
         ),
       ],
@@ -204,28 +202,30 @@ class _DisplayCartState extends State<DisplayCart> {
             flex: 3,
             child: ShowText(
               title: 'ชื่อสินค้า',
-              textStyle: MyConstant().h2Style(),
+              textStyle: MyConstant().h3Style(),
             ),
           ),
           Expanded(
             flex: 1,
             child: ShowText(
               title: 'ราคา',
-              textStyle: MyConstant().h2Style(),
+              textStyle: MyConstant().h3Style(),
             ),
           ),
           Expanded(
             flex: 1,
             child: ShowText(
               title: 'จำนวน',
-              textStyle: MyConstant().h2Style(),
+              textStyle: MyConstant().h3Style(),
             ),
           ),
           Expanded(
             flex: 1,
-            child: ShowText(
-              title: 'รวม',
-              textStyle: MyConstant().h2Style(),
+            child: Center(
+              child: ShowText(
+                title: 'รวม',
+                textStyle: MyConstant().h3Style(),
+              ),
             ),
           ),
           const Expanded(
@@ -250,15 +250,15 @@ class _DisplayCartState extends State<DisplayCart> {
           ),
           Expanded(
             flex: 1,
-            child: ShowText(title: sqliteModels[index].price),
+            child: Center(child: ShowText(title: sqliteModels[index].price)),
           ),
           Expanded(
             flex: 1,
-            child: ShowText(title: sqliteModels[index].amount),
+            child: Center(child: ShowText(title: sqliteModels[index].amount)),
           ),
           Expanded(
             flex: 1,
-            child: ShowText(title: sqliteModels[index].sum),
+            child: Center(child: ShowText(title: sqliteModels[index].sum)),
           ),
           Expanded(
             flex: 1,

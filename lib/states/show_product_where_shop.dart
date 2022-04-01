@@ -64,7 +64,9 @@ class _ShowProductWhereShopState extends State<ShowProductWhereShop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [ShowAddCart()],),
+      appBar: AppBar(actions: [ShowAddCart()],
+      backgroundColor: MyConstant.primart,
+      title: Text('สินค้า'),),
       body: load
           ? const ShowProcess()
           : haveProduct!
@@ -78,7 +80,7 @@ class _ShowProductWhereShopState extends State<ShowProductWhereShop> {
                         )),
                     child: Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: ShowText(title: stockModels[index].cat),
                       ),
                     ),

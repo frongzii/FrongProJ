@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:frongeasyshop/models/product_model.dart';
+import 'package:frongeasyshop/utility/my_constant.dart';
 import 'package:frongeasyshop/widgets/show_process.dart';
 import 'package:frongeasyshop/widgets/show_text.dart';
 
@@ -55,10 +56,17 @@ class _ShowProductForShoperState extends State<ShowProductForShoper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: MyConstant.primart,
+        title: Text('สินค้า'),
+      ),
       body: load
-          ? const ShowProcess()
-          : ListView.builder(itemCount: productModels.length,
+          ? const ShowProcess(
+        
+          )
+          
+          : ListView.builder(
+              itemCount: productModels.length,
               itemBuilder: (context, index) =>
                   ShowText(title: productModels[index].nameProduct),
             ),

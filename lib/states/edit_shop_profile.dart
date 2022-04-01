@@ -88,7 +88,7 @@ class _EditShopProFileState extends State<EditShopProFile> {
                           ),
                           ShowText(
                             title: profileShopModel!.address,
-                            textStyle: MyConstant().h2Style(),
+                            textStyle: MyConstant().h3Style(),
                           ),
                         ],
                       ),
